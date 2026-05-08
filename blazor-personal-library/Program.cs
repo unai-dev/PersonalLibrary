@@ -1,4 +1,4 @@
-using blazor_personal_library.Components;
+using blazor_personal_library;
 
 var builder = WebApplication.CreateBuilder(args);
 

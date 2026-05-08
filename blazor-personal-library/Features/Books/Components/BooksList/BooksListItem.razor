@@ -1,0 +1,18 @@
+﻿
+<div class="card d-flex flex-row rounded-0 shadow-lg bg-info">
+    <p> Title: @Title </p>
+    <p> State: @State </p>
+    <p> Author: @Author </p>
+</div>
+
+
+
+@code {
+
+    [Parameter, EditorRequired] public string Title { get; set; }
+
+    [Parameter] public bool State { get; set; } = false; 
+
+    [Parameter, EditorRequired] public string Author { get; set; }
+
+}

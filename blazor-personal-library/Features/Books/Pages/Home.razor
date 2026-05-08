@@ -1,0 +1,36 @@
+﻿@page "/"
+
+<PageTitle>Home</PageTitle>
+
+<h1>Welcome,</h1>
+<BooksList Books="books" />
+
+@code {
+    private List<Book> books = null!;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(2000);
+
+        books = new List<Book>()
+    {
+        new Book
+    {
+        Id = 1,
+        Title = "Clean Code",
+        Author = "Robert C. Martin",
+        State = true
+    },
+
+        new Book
+    {
+        Id = 2,
+        Title = "The Pragmatic Programmer",
+        Author = "Andrew Hunt & David Thomas",
+        State = false
+    }
+    };
+
+    }
+}

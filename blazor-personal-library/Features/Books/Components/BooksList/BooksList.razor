@@ -1,0 +1,22 @@
+﻿@if (Books != null)
+{
+
+    <ul>
+        @foreach (var book in Books)
+        {
+            <BooksListItem Author="@book.Author" State="@book.State" Title="@book.Title" />
+        }
+    </ul>
+    
+} else
+{
+    // TODO --> component
+    <text>Loading....</text>
+}
+
+
+
+
+@code {
+    [Parameter, EditorRequired] public List<Book>? Books { get; set; } = null;
+}
