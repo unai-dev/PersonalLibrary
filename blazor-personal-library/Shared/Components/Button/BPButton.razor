@@ -1,9 +1,52 @@
 ﻿<div class="my-2">
-    <button class="btn btn-primary w-100" @onclick="OnClick" type="button"> @ChildContent </button>
+    <button class="@CssClasses" @onclick="OnClick" type="button"> @ChildContent </button>
 </div>
 
 @code {
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; } =@<text>Sumbit</text>;
+    [Parameter] public RenderFragment? ChildContent { get; set; } = @<text>Sumbit</text>;
     [Parameter] public EventCallback OnClick { get; set; }
+    [Parameter] public Variant Variant { get; set; } = Variant.Primary;
+    [Parameter] public Width Width { get; set; } = Width.Full;
+    [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string CssClasses
+    {
+        get
+        {
+
+            var externalCssClasses = string.Empty;
+            
+            if (AdditionalAttributes is not null && AdditionalAttributes.ContainsKey("class"))
+            {
+                externalCssClasses = AdditionalAttributes["class"].ToString()!;
+            }
+
+            string[] classes = [
+                "btn",
+
+                Variant switch
+            {
+                Variant.Primary => "btn-primary",
+                Variant.Secondary => "btn-secondary",
+                Variant.Success => "btn-success",
+                Variant.Warning => "btn-warning",
+                Variant.Error => "btn-error",
+                _ => "btn-primary"
+
+            },
+                Width switch
+            {
+
+                Width.Full => "w-100",
+                Width.Half => "w-50",
+                Width.Small => "w-25",
+                _ => "w-100"
+            },
+
+                externalCssClasses
+            ];
+
+            return string.Join(" ", classes);
+        }
+    }
 }

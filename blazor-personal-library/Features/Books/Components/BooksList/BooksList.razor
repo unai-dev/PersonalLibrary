@@ -1,17 +1,20 @@
-﻿
-@if (books != null)
+﻿@if (Books is null)
 {
+    <Loading />
 
+}
+else if (Books!.Count == 0)
+{
+    <text>No hay elementos a mostrar</text>
+}
+else
+{
     <ul>
-        @foreach (var book in books!)
+        @foreach (var book in Books!)
         {
-            <BooksListItem @key="book.Id" Book="book" RemoveBook="RemoveBook"/>
+            <BooksListItem @key="book.Id" Book="book" RemoveBook="RemoveBook" />
         }
     </ul>
-    
-} else
-{
-    <Loading/>
 }
 
 
@@ -20,22 +23,9 @@
 @code {
     [Parameter, EditorRequired] public List<Book>? Books { get; set; }
 
-    private List<Book>? books = null;
-
-    protected override void OnInitialized()
-    {
-        books = Books;
-    }
-
-    protected override void OnParametersSet()
-    {
-        books = Books;
-    }
-
-
     private void RemoveBook(Book book)
     {
-        books!.Remove(book);
+        Books!.Remove(book);
     }
 
 }

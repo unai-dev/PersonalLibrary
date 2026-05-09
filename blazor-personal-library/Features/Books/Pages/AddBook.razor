@@ -5,28 +5,28 @@
 
 <h3 class="fw-bold text-center my-3 bg-primary rounded text-white p-2">New Book</h3>
 
-<div class="d-flex flex-column shadow-lg border-0 rounded-5">
+<div class="d-flex flex-column shadow-lg border-0 rounded-5 p-4">
     <form>
         <div class="mb-3">
 
-            <label class="form-label">Title</label>
-            <input class="form-control border-secondary" @bind="title" placeholder="El Quijote" />
+            <label class="form-label fw-bold">Title</label>
+            <input class="form-control text-muted" @bind="title" placeholder="El Quijote" required />
         </div>
 
         <div class="mb-3">
 
-            <label class="form-label">Author</label>
-            <input class="form-control border-secondary" @bind="author" placeholder="Cerbantes" />
+            <label class="form-label fw-bold">Author</label>
+            <input class="form-control text-muted" @bind="author" placeholder="Cerbantes" required />
 
         </div>
 
         <div class="mb-3">
 
-            <label class="form-label">State</label>
-            <input class="form-check " type="checkbox" @bind="state" placeholder="True" />
+            <label class="form-label fw-bold">State</label>
+            <input class="form-check text-muted" type="checkbox" @bind="state" />
         </div>
 
-        <BPButton OnClick="AddNewBook">Add Book</BPButton>
+        <BPButton Variant="Variant.Primary" Width="Width.Full" OnClick="AddNewBook">Add Book</BPButton>
         
     </form>
 </div>
@@ -47,6 +47,11 @@
 
     private void AddNewBook()
     {
+        if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(author))
+        {
+            return;
+        }
+
         var book = new Book
             {
                 Author = author,
