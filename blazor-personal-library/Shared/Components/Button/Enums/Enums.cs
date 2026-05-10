@@ -6,7 +6,7 @@
         Secondary,
         Success,
         Warning,
-        Error
+        Danger
 
     }
 
@@ -15,5 +15,12 @@
         Full,
         Half,
         Small
+    }
+
+    public enum Size
+    {
+        Sm,
+        Md,
+        Lg
     }
 }

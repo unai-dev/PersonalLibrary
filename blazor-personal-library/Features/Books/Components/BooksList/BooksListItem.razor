@@ -5,7 +5,7 @@
     <p class="text-secondary mb-0">@Book.State</p>
     <p class="text-muted">@Book.Author</p>
 
-    <BPButton OnClick="@(() => RemoveBook.InvokeAsync(Book))">Remove</BPButton>
+    <BPButton Variant="Variant.Danger" OnClick="@(() => RemoveBook.InvokeAsync(Book))">Remove</BPButton>
     
 </div>
 
