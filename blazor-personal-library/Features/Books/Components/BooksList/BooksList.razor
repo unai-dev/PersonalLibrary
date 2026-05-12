@@ -1,9 +1,22 @@
 ﻿@inject IJSRuntime jSRuntime
 
+<div class="my-4">
+    <div class="row g-4 text-center">
 
-<GenericList List="Books">
-    <BooksListItem @key="context.Id" Book="context" RemoveBook="RemoveBook" />
-</GenericList>
+        <GenericList List="Books">
+            <ErrorBoundary>
+                <ChildContent>
+                    <BooksListItem @key="context.Id" Book="context" RemoveBook="RemoveBook" />
+                </ChildContent>
+
+                <ErrorContent Context="Error">
+                    El libro no esta disponible.
+                </ErrorContent>
+            </ErrorBoundary>
+        </GenericList>
+
+    </div>
+</div>
 
 
 

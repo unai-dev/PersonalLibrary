@@ -16,7 +16,8 @@ namespace blazor_personal_library.Features.Books.Services
                 Id = 1,
                 Title = "Clean Code",
                 Author = "Robert C. Martin",
-                State = true
+                State = true,
+                BookImage = "https://m.media-amazon.com/images/I/41nUxzDHD-L._SY445_SX342_ML2_.jpg"
             },
 
                 new Book
@@ -24,7 +25,8 @@ namespace blazor_personal_library.Features.Books.Services
                 Id = 2,
                 Title = "The Pragmatic Programmer",
                 Author = "Andrew Hunt & David Thomas",
-                State = false
+                State = false,
+                BookImage = "https://cdn.waterstones.com/bookjackets/large/9780/1359/9780135957059.jpg"
             }
             };
         }
