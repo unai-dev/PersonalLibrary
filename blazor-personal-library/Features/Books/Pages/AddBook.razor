@@ -1,4 +1,4 @@
-﻿@page "/add"
+﻿@page "/book/add"
 @rendermode InteractiveServer
 @attribute [StreamRendering]
 @inject IBookService bookService
@@ -8,33 +8,33 @@
 <h3 class="fw-bold text-center my-3 bg-primary rounded text-white p-2">New Book</h3>
 
 <div class="d-flex flex-column shadow-lg border-0 rounded-5 p-4">
-    <form>
+    <EditForm Model="book">
         <div class="mb-3">
 
             <label class="form-label fw-bold">Title</label>
-            <input class="form-control text-muted" @bind="title" placeholder="El Quijote" required />
+            <InputText class="form-control text-muted" @bind-Value="title" placeholder="El Quijote" required />
         </div>
 
         <div class="mb-3">
 
             <label class="form-label fw-bold">Author</label>
-            <input class="form-control text-muted" @bind="author" placeholder="Cervantes" required />
+            <InputText class="form-control text-muted" @bind-Value="author" placeholder="Cervantes" required />
 
         </div>
 
         <div class="mb-3">
 
             <label class="form-label fw-bold">State</label>
-            <input class="form-check text-muted" type="checkbox" @bind="state" />
+            <InputCheckbox class="form-check text-muted" type="checkbox" @bind-Value="state" />
         </div>
 
         <BPButton Variant="Variant.Success" Width="Width.Full" OnClick="AddNewBook">Add Book</BPButton>
         
-    </form>
+    </EditForm>
 </div>
 
 @code {
-
+    private Book book = new Book();
     private string title = string.Empty;
     private string author = string.Empty;
     private bool state = false;

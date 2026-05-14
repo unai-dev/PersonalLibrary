@@ -23,4 +23,11 @@
         Md,
         Lg
     }
+
+    public enum ButtonType
+    {
+        Sumbit,
+        Reset,
+        Button
+    }
 }

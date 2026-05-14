@@ -1,0 +1,26 @@
+﻿
+@page "/category/add"
+@rendermode InteractiveServer
+
+<h3>Add Category</h3>
+
+
+<EditForm Model="category">
+    <div class="mb-3">
+        <label>Name:</label>
+    </div>
+
+    <InputText class="form-control" @bind-Value="category.Name" />
+
+    <BPButton OnClick="Add" />
+</EditForm>
+
+
+@code {
+    private Category category = new Category();
+
+    private void Add()
+    {
+        Console.WriteLine($"Categoria agregada: {category.Name}");
+    }
+}

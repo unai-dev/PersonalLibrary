@@ -1,5 +1,5 @@
 ﻿<div class="my-2">
-    <button class="@CssClasses" @onclick="OnClick" type="button"> @ChildContent </button>
+    <button class="@CssClasses" @onclick="OnClick" type="@ButtonType.ToString()"> @ChildContent </button>
 </div>
 
 @code {
@@ -8,6 +8,8 @@
     [Parameter] public Variant Variant { get; set; } = Variant.Primary;
     [Parameter] public Width Width { get; set; } = Width.Full;
     [Parameter] public Size Size { get; set; } = Size.Sm;
+    [Parameter] public ButtonType ButtonType { get; set; } = ButtonType.Sumbit;
+
     [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
     private string CssClasses
