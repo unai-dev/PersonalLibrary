@@ -1,24 +1,64 @@
 ﻿@page "/category/add"
 @rendermode InteractiveServer
+@implements IDisposable
 
 <h3>Add Category</h3>
 
 
-<EditForm Model="category" OnValidSubmit="Add">
+<EditForm EditContext="editContext" OnValidSubmit="Add">
 
     <DataAnnotationsValidator/>
 
     <BPInputText Label="Name" @bind-Value="category.Name" PlaceHolder="Action"/>
 
-    <BPButton ButtonType="ButtonType.Sumbit"/>
+    <BPButton ButtonType="ButtonType.Sumbit" Disabled="invalidForm || currentPost">
+        @(currentPost ? @<text>Sending...</text> : @<text>Sumbit</text>)
+    </BPButton>
 </EditForm>
 
 
-@code {
-    private Category category = new Category();
+                    @code {
+    private Category category = null!;
+    private EditContext? editContext;
+    private bool invalidForm = true;
+    private bool currentPost = false;
 
-    private void Add()
+    protected override void OnInitialized()
     {
-        Console.WriteLine($"Categoria agregada: {category.Name}");
+        category = new Category();
+        editContext = new(category);
+        editContext.OnFieldChanged += HandleFieldChanged;
+    }
+
+    private async Task Add()
+    {
+        if (!currentPost)
+        {
+            currentPost = true;
+            Console.WriteLine($"Categoria agregada: {category.Name}");
+            await Task.Delay(2000);
+
+            currentPost = false;
+        }
+    }
+
+    private void HandleFieldChanged(object? sender, FieldChangedEventArgs e) 
+    {
+        if (editContext is not null)
+        {
+            // Guardamos si el formulario es valido o no
+            // Si es valido guardamos false para que el boton de enviar este activo
+            // En caso que el formulario sea invalido guardamos true para que el boton enviar este inactivo
+            invalidForm = !editContext.Validate();
+            StateHasChanged();  
+        }
+    }
+
+    public void Dispose()
+    {
+        if (editContext is not null)
+        {
+            editContext.OnFieldChanged -= HandleFieldChanged;
+        }
     }
 }

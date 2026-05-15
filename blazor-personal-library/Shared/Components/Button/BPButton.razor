@@ -1,5 +1,5 @@
 ﻿<div class="my-2">
-    <button class="@CssClasses" @onclick="OnClick" type="@ButtonType.ToString()"> @ChildContent </button>
+    <button class="@CssClasses" @onclick="OnClick" type="@ButtonType.ToString()" disabled="@Disabled"> @ChildContent </button>
 </div>
 
 @code {
@@ -9,6 +9,7 @@
     [Parameter] public Width Width { get; set; } = Width.Full;
     [Parameter] public Size Size { get; set; } = Size.Sm;
     [Parameter] public ButtonType ButtonType { get; set; } = ButtonType.Sumbit;
+    [Parameter] public bool Disabled { get; set; } = false;
 
     [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
