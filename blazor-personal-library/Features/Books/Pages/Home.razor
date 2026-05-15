@@ -1,11 +1,10 @@
 ﻿@page "/"
-@attribute [StreamRendering]
-@rendermode InteractiveServer
+
 @inject IBookService bookService
 
 <PageTitle>Home</PageTitle>
 
-<h3 class="fw-bold text-center fst-italic my-3 bg-primary rounded text-white p-2">Benito's Books </h3>
+<BPHeaderThree>Benito's Books</BPHeaderThree>
 <BooksList Books="books" />
 
 @code {

@@ -1,27 +1,34 @@
 ﻿@page "/category/add"
-@rendermode InteractiveServer
+
 @implements IDisposable
 
-<h3>Add Category</h3>
+@inject NavigationManager navigationManager
+@inject IJSRuntime jSRuntime
 
+<BPHeaderThree>New Category</BPHeaderThree>
 
+<NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation" />
 <EditForm EditContext="editContext" OnValidSubmit="Add">
 
-    <DataAnnotationsValidator/>
+    <DataAnnotationsValidator />
 
-    <BPInputText Label="Name" @bind-Value="category.Name" PlaceHolder="Action"/>
+    <BPInputText Label="Name" @bind-Value="category.Name" PlaceHolder="Action" />
 
     <BPButton ButtonType="ButtonType.Sumbit" Disabled="invalidForm || currentPost">
-        @(currentPost ? @<text>Sending...</text> : @<text>Sumbit</text>)
+        @(currentPost ?@<text>Sending...</text> : @<text>Sumbit</text>)
     </BPButton>
+
 </EditForm>
 
 
-                    @code {
+@code {
     private Category category = null!;
     private EditContext? editContext;
     private bool invalidForm = true;
     private bool currentPost = false;
+    private bool formPostWithExit = false;
+
+
 
     protected override void OnInitialized()
     {
@@ -39,10 +46,13 @@
             await Task.Delay(2000);
 
             currentPost = false;
+            formPostWithExit = true;
+
+            navigationManager.NavigateTo("/");
         }
     }
 
-    private void HandleFieldChanged(object? sender, FieldChangedEventArgs e) 
+    private void HandleFieldChanged(object? sender, FieldChangedEventArgs e)
     {
         if (editContext is not null)
         {
@@ -50,7 +60,7 @@
             // Si es valido guardamos false para que el boton de enviar este activo
             // En caso que el formulario sea invalido guardamos true para que el boton enviar este inactivo
             invalidForm = !editContext.Validate();
-            StateHasChanged();  
+            StateHasChanged();
         }
     }
 
@@ -60,5 +70,29 @@
         {
             editContext.OnFieldChanged -= HandleFieldChanged;
         }
+    }
+
+    private async Task OnBeforeInternalNavigation(LocationChangingContext context)
+    {
+        /**
+        * Si el formulario no ha sido editado o se ha enviado correctamente, no hacemos nada.
+        * Si el formulario si que ha sido editado o no fue enviado, mostramos una ventana emergente.
+        */
+        var formIsEdited = editContext!.IsModified();
+
+        if (!formIsEdited) return;
+
+        if (formPostWithExit) return;
+
+        var confirm = await jSRuntime.Confirm("You want to exit without saving changes?");
+        Console.WriteLine("Ejecutando ventana con exito....");
+
+        if (confirm)
+        {
+            return;
+        }
+
+        context.PreventNavigation();
+
     }
 }

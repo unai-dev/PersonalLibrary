@@ -1,4 +1,5 @@
-﻿using blazor_personal_library.Shared.Validations;
+﻿using blazor_personal_library.Features.Categories.Entities;
+using blazor_personal_library.Shared.Validations;
 using System.ComponentModel.DataAnnotations;
 
 namespace blazor_personal_library.Features.Books.Entities
@@ -17,6 +18,10 @@ namespace blazor_personal_library.Features.Books.Entities
         public string? Author { get; set; }
         public string? BookImage { get; set; }
         public bool Favorite { get; set; } = false;
+
+        // Relaciones
+        public Category? Category { get; set; }
+        public int CategoryId { get; set; }
 
     }
 }

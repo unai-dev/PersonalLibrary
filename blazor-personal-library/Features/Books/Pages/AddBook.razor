@@ -1,11 +1,12 @@
 ﻿@page "/book/add"
-@rendermode InteractiveServer
-@attribute [StreamRendering]
+@using blazor_personal_library.Shared.Components.Headers
+
+
 @inject IBookService bookService
 @inject NavigationManager navigationManager
 
 
-<h3 class="fw-bold text-center my-3 bg-primary rounded text-white p-2">New Book</h3>
+<BPHeaderThree>New Book</BPHeaderThree>
 
 <div class="d-flex flex-column shadow-lg border-0 rounded-5 p-4">
     <EditForm Model="book" OnValidSubmit="AddNewBook">
