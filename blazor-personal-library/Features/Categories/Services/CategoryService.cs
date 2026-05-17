@@ -9,7 +9,24 @@ namespace blazor_personal_library.Features.Categories.Services
 
         public CategoryService()
         {
-            _categories = new List<Category>();
+            _categories = new List<Category>()
+            {
+                new Category
+                {
+                    Id = 1,
+                    Name = "Programacion"
+                },
+                new Category
+                {
+                    Id = 2,
+                    Name = "Contabilidad"
+                },
+                new Category
+                {
+                    Id = 3,
+                    Name = "Vida"
+                },
+            };
         }
 
         public List<Category> GetCategories()

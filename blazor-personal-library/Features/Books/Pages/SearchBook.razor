@@ -1,0 +1,65 @@
+﻿@page "/books/search"
+@inject ICategoryService categoryService
+@inject IBookService bookService
+
+<BPHeaderThree>Buscar Libros</BPHeaderThree>
+<p class="text-muted fw-semibold">Busca libros y agregalos a tu coleccion</p>
+
+
+<div class="row g-2 align-items-center mb-3">
+
+    <div class="cols-sm-3">
+        <input class="form-control text-muted" 
+        placeholder="Ej.El Quijote"
+        autocomplete="off"
+        @bind-value="@title" 
+        @bind:event="oninput"
+        @onkeypress="@KeyPress" 
+        />
+    </div>
+    
+    <div class="cols-sm-3">
+        <select class="form-select">
+            <option value="0">-- Selecionar Categoria --</option>
+
+            @foreach (var category in categories)
+            {
+                <option value="@category.Id">@category.Name</option>
+            }
+        </select>
+    </div>
+</div>
+
+<hr/>
+
+<BooksList Books="@books"/>
+
+@code {
+    private string title = string.Empty;
+
+    private List<Category> categories = new List<Category>();
+    private List<Book>? books = null;
+
+    protected override void OnInitialized()
+    {
+        books = bookService.GetBooks();
+        categories = categoryService.GetCategories();
+    }
+
+    private void KeyPress(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")
+        {
+            LoadSearchBooks();
+        }
+    }
+
+    private void LoadSearchBooks()
+    {
+        books = bookService
+        .GetBooks()
+        .Where(t => t.Title.ToLower().Contains(
+            title.ToLower()))
+            .ToList();
+    }
+}

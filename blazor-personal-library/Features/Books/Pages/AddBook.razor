@@ -1,5 +1,4 @@
-﻿@page "/book/add"
-
+﻿@page "/books/add"
 
 @inject IBookService bookService
 @inject NavigationManager navigationManager
@@ -7,50 +6,44 @@
 
 <BPHeaderThree>New Book</BPHeaderThree>
 
-<div class="d-flex flex-column shadow-lg border-0 rounded-5 p-4">
-    <EditForm Model="book" OnValidSubmit="AddNewBook">
-
-        <DataAnnotationsValidator />
-
-        <div class="mb-3">
-            <BPInputText Label="Title" @bind-Value="book.Title" PlaceHolder="El Quijote" />
-        </div>
-
-        <div class="mb-3">
-            <BPInputText Label="Author" @bind-Value="book.Author" PlaceHolder="Cervantes" />
-        </div>
-
-        <div class="mb-3">
-            <label class="mb-2">Book Image:</label>
-            <InputFile class="form-control text-muted" @bind-Value="book.BookImage" />
-        </div>
-
-        <div class="mb-3">
-
-            <label class="form-label fw-bold">State</label>
-            <InputCheckbox class="form-check text-muted" type="checkbox" @bind-Value="book.State" />
-        </div>
-
-        <BPButton Variant="Variant.Success" Width="Width.Full">Add Book</BPButton>
-
-    </EditForm>
-</div>
+<BookForm Book="@book"
+          CurrentPost="@currentPost"
+          PostWithExit="@formPostWithExit"
+          OnValidSumbit="@AddNewBook" />
 
 @code {
-    private Book book = new Book();
+    private Book? book;
+    private bool currentPost = false;
+    private bool formPostWithExit = false;
 
-    private void AddNewBook()
+    protected override void OnInitialized()
     {
-        bookService.AddNewBook(new Book
+        book = new Book();
+    }
+
+    private async Task AddNewBook()
+    {
+        if (!currentPost)
         {
-            Author = book.Author,
-            Title = book.Title,
-            State = book.State
-        });
+            currentPost = true;
 
-        StateHasChanged();
+            bookService.AddNewBook(new Book
+            {
+                Author = book.Author,
+                Title = book.Title,
+                State = book.State
+            });
 
-        navigationManager.NavigateTo("/");
+            await Task.Delay(2000);
+
+            currentPost = false;
+            formPostWithExit = true;
+
+            navigationManager.NavigateTo("/");
+
+            StateHasChanged();
+        }
+
     }
 
 
