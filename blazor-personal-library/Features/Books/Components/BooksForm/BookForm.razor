@@ -15,8 +15,7 @@
         </div>
 
         <div class="mb-3">
-            <label class="mb-2">Book Image:</label>
-            <InputFile class="form-control text-muted" @bind-Value="@Book.BookImage" />
+            <BPInputImage Label="Imagen del Libro" ImageURL="@Book.BookImage" SelectImage="f => Book.FilePicture = f"/>
         </div>
 
         <div class="mb-3">
