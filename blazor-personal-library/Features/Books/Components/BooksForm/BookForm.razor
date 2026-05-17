@@ -1,9 +1,10 @@
-﻿@implements IDisposable
+﻿<div class="d-flex flex-column shadow-lg border-0 rounded-5 p-4">
 
-<div class="d-flex flex-column shadow-lg border-0 rounded-5 p-4">
-    <EditForm EditContext="@editContext" OnValidSubmit="@OnValidSumbit">
-
-        <DataAnnotationsValidator />
+    <EntityForm Entity="@Book"
+                CurrentPost="@CurrentPost"
+                FormPostWithExit="@PostWithExit"
+                InvalidForm="@InvalidForm"
+                OnValidSumbit="@OnValidSumbit">
 
         <div class="mb-3">
             <BPInputText Label="Title" @bind-Value="@Book.Title" PlaceHolder="El Quijote" />
@@ -23,49 +24,14 @@
             <label class="form-label fw-bold">State</label>
             <InputCheckbox class="form-check text-muted" type="checkbox" @bind-Value="@Book.State" />
         </div>
+    </EntityForm>
 
-        <BPButton Variant="Variant.Success" Width="Width.Full" Disabled="CurrentPost || InvalidForm">
-            @(CurrentPost ? @<text>Sending...</text> : @<text>Send</text>)
-        </BPButton>
-
-    </EditForm>
 </div>
 
-
-
 @code {
-    private EditContext? editContext;
-
     [Parameter, EditorRequired] public Book Book { get; set; }
     [Parameter, EditorRequired] public bool CurrentPost { get; set; } = false;
     [Parameter, EditorRequired] public bool PostWithExit { get; set; } = false;
     [Parameter, EditorRequired] public EventCallback OnValidSumbit { get; set; }
     [Parameter] public bool InvalidForm { get; set; } = true;
-
-    protected override void OnInitialized()
-    {
-        editContext = new(Book);
-        editContext.OnFieldChanged += HandleFieldChanged;
-
-    }
-
-    private void HandleFieldChanged(object? sender, FieldChangedEventArgs e)
-    {
-        if (editContext is not null)
-        {
-            InvalidForm = !editContext.Validate();
-            StateHasChanged();
-        }
-    }
-
-    public void Dispose()
-    {
-        if (editContext is not null)
-        {
-            editContext.OnFieldChanged -= HandleFieldChanged;
-        }
-    }
-
-
-
 }

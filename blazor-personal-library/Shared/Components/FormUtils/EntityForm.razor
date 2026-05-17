@@ -1,0 +1,56 @@
+﻿@implements IDisposable
+@typeparam T where T:class
+
+<EditForm EditContext="editContext" OnValidSubmit="OnValidSumbit">
+
+    <DataAnnotationsValidator />
+
+    @ChildContent
+
+    <BPButton ButtonType="ButtonType.Sumbit" Disabled="invalidForm || CurrentPost">
+        @(CurrentPost ?@<text>Sending...</text> : @<text>Sumbit</text>)
+    </BPButton>
+
+</EditForm>
+
+@code {
+    [Parameter, EditorRequired] public RenderFragment ChildContent { get; set; }
+
+    [Parameter, EditorRequired] public T Entity { get; set; }
+    [Parameter, EditorRequired] public bool CurrentPost { get; set; } = false;
+    [Parameter, EditorRequired] public bool FormPostWithExit { get; set; } = false;
+    [Parameter, EditorRequired] public EventCallback OnValidSumbit { get; set; }
+    [Parameter] public bool InvalidForm { get; set; } = true;
+
+    private EditContext? editContext;
+    private bool invalidForm = true;
+
+    protected override void OnInitialized()
+    {
+        editContext = new(Entity);
+        editContext.OnFieldChanged += HandleFieldChanged;
+        invalidForm = InvalidForm;
+    }
+
+
+    private void HandleFieldChanged(object? sender, FieldChangedEventArgs e)
+    {
+        if (editContext is not null)
+        {
+            // Guardamos si el formulario es valido o no
+            // Si es valido guardamos false para que el boton de enviar este activo
+            // En caso que el formulario sea invalido guardamos true para que el boton enviar este inactivo
+            invalidForm = !editContext.Validate();
+            StateHasChanged();
+        }
+    }
+
+    public void Dispose()
+    {
+        if (editContext is not null)
+        {
+            editContext.OnFieldChanged -= HandleFieldChanged;
+        }
+    }
+
+}
