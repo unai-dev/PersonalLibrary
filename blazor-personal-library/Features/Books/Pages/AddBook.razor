@@ -1,6 +1,8 @@
 ﻿@page "/books/add"
 
 @inject IBookService bookService
+@inject ICategoryService categoryService
+@inject IAuthorService authorService
 @inject NavigationManager navigationManager
 
 
@@ -9,16 +11,28 @@
 <BookForm Book="@book"
           CurrentPost="@currentPost"
           PostWithExit="@formPostWithExit"
-          OnValidSumbit="@AddNewBook" />
+          OnValidSumbit="@AddNewBook" 
+          CategoriesDeselect="@categoriesDeselect" CategoriesSelect="@categoriesSelect"
+          AuthorsDeselect="@authorsDeselect" AuthorsSelect="@authorsSelect"
+          />
+
 
 @code {
     private Book? book;
+    private List<Category>? categoriesSelect = new List<Category>();
+    private List<Category>? categoriesDeselect = new List<Category>();
+
+    private List<Author>? authorsSelect = new List<Author>();
+    private List<Author>? authorsDeselect = new List<Author>();
+
     private bool currentPost = false;
     private bool formPostWithExit = false;
 
     protected override void OnInitialized()
     {
         book = new Book();
+        categoriesDeselect = categoryService.GetCategories();
+        authorsDeselect = authorService.GetAuthors();
     }
 
     private async Task AddNewBook()
@@ -29,8 +43,7 @@
 
             bookService.AddNewBook(new Book
             {
-                Author = book.Author,
-                Title = book.Title,
+                Title = book!.Title,
                 State = book.State
             });
 

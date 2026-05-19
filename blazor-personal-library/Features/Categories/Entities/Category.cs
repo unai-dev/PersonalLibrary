@@ -1,4 +1,4 @@
-﻿using blazor_personal_library.Features.Books.Entities;
+﻿using blazor_personal_library.Features.BookCategories.Entities;
 using blazor_personal_library.Shared.Validations;
 using System.ComponentModel.DataAnnotations;
 
@@ -12,6 +12,6 @@ namespace blazor_personal_library.Features.Categories.Entities
         [FirstUpperAttribute]
         public string? Name { get; set; }
 
-        public List<Book> Books { get; set; } = new List<Book>();
+        public List<BookCategory> BookCategories { get; set; } = new List<BookCategory>();
     }
 }

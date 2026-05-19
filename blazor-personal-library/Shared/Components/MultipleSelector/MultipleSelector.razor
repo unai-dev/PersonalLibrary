@@ -1,0 +1,63 @@
+﻿<div class="mb-3">
+    <label>
+        @Label
+    </label>
+    <div>
+        <div class="mult-select">
+            <ul class="selectable-ul">
+                @foreach (var item in NoSelects)
+                {
+                    <li @onclick="@(() => SelectItem(item))">@item.description</li>
+                }
+            </ul>
+
+            <div class="selectable-button">
+                <button type="button" @onclick="@SelectAll">@SELECT_ICON</button>
+                <button type="button" @onclick="@DeselectAll">@NO_SELECT_ICON</button>
+            </div>
+
+           
+            <ul class="selectable-ul">
+                @foreach (var item in Selects)
+                {
+                    <li @onclick="@(() => DeselectItem(item))">@item.description</li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+@code {
+    private const string NO_SELECT_ICON = "<<";
+    private const string SELECT_ICON = ">>";
+    [Parameter, EditorRequired] public string Label { get; set; }
+    [Parameter, EditorRequired] public List<MultipleSelectorModel> Selects { get; set; } = new List<MultipleSelectorModel>();
+    [Parameter] public List<MultipleSelectorModel> NoSelects { get; set; } = new List<MultipleSelectorModel>();
+
+    private void SelectItem(MultipleSelectorModel item)
+    {
+        NoSelects.Remove(item);
+        Selects.Add(item);
+    }
+
+    private void DeselectItem(MultipleSelectorModel item)
+    {
+        Selects.Remove(item);
+        NoSelects.Add(item);
+    }
+
+    private void SelectAll()
+    {
+        Selects.AddRange(NoSelects);
+        NoSelects.Clear();
+    }
+
+    private void DeselectAll()
+    {
+        NoSelects.AddRange(Selects);
+        Selects.Clear();
+    }
+
+}

@@ -15,7 +15,6 @@ namespace blazor_personal_library.Features.Books.Services
         {
             Id = 1,
             Title = "Clean Code",
-            Author = "Robert C. Martin",
             State = true,
             BookImage = "https://m.media-amazon.com/images/I/41nUxzDHD-L._SY445_SX342_ML2_.jpg"
         },
@@ -23,7 +22,6 @@ namespace blazor_personal_library.Features.Books.Services
         {
             Id = 2,
             Title = "The Pragmatic Programmer",
-            Author = "Andrew Hunt & David Thomas",
             State = false,
             BookImage = "https://cdn.waterstones.com/bookjackets/large/9780/1359/9780135957059.jpg"
         },
@@ -31,7 +29,6 @@ namespace blazor_personal_library.Features.Books.Services
         {
             Id = 3,
             Title = "Design Patterns",
-            Author = "Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides",
             State = true,
             BookImage = "https://m.media-amazon.com/images/I/81IGFC6oFmL.jpg"
         },
@@ -39,7 +36,6 @@ namespace blazor_personal_library.Features.Books.Services
         {
             Id = 4,
             Title = "Refactoring",
-            Author = "Martin Fowler",
             State = true,
             BookImage = "https://m.media-amazon.com/images/I/71vEr0oyt-L._AC_UF1000,1000_QL80_.jpg"
         },
@@ -47,7 +43,6 @@ namespace blazor_personal_library.Features.Books.Services
         {
             Id = 5,
             Title = "Domain-Driven Design",
-            Author = "Eric Evans",
             State = false,
             BookImage = "https://m.media-amazon.com/images/I/41uPjEenkFL._SY445_SX342_.jpg"
         },
@@ -55,7 +50,6 @@ namespace blazor_personal_library.Features.Books.Services
         {
             Id = 6,
             Title = "Clean Architecture",
-            Author = "Robert C. Martin",
             State = true,
             BookImage = "https://m.media-amazon.com/images/I/41-sN-mzwKL._SY445_SX342_.jpg"
         },
@@ -63,7 +57,6 @@ namespace blazor_personal_library.Features.Books.Services
         {
             Id = 7,
             Title = "Working Effectively with Legacy Code",
-            Author = "Michael Feathers",
             State = false,
             BookImage = "https://m.media-amazon.com/images/I/81iVQ1bi-FL.jpg"
         },
@@ -71,7 +64,6 @@ namespace blazor_personal_library.Features.Books.Services
         {
             Id = 8,
             Title = "The Clean Coder",
-            Author = "Robert C. Martin",
             State = true,
             BookImage = "https://m.media-amazon.com/images/I/41jEbK-jG+L._SY445_SX342_.jpg"
         },
@@ -79,7 +71,6 @@ namespace blazor_personal_library.Features.Books.Services
         {
             Id = 9,
             Title = "You Don't Know JS (Series)",
-            Author = "Kyle Simpson",
             State = true,
             BookImage = "https://m.media-amazon.com/images/I/41xShlnTZTL._SY445_SX342_.jpg"
         },
@@ -87,7 +78,6 @@ namespace blazor_personal_library.Features.Books.Services
         {
             Id = 10,
             Title = "Introduction to Algorithms",
-            Author = "Thomas H. Cormen",
             State = false,
             BookImage = "https://m.media-amazon.com/images/I/61O5SsbL8HL._AC_UF1000,1000_QL80_.jpg"
         },
@@ -95,7 +85,6 @@ namespace blazor_personal_library.Features.Books.Services
         {
             Id = 11,
             Title = "The Mythical Man-Month",
-            Author = "Frederick P. Brooks Jr.",
             State = true,
             BookImage = "https://m.media-amazon.com/images/I/817iWsLJR0L.jpg"
         },
@@ -103,7 +92,6 @@ namespace blazor_personal_library.Features.Books.Services
         {
             Id = 12,
             Title = "Soft Skills: The Software Developer's Life Manual",
-            Author = "John Sonmez",
             State = true,
             BookImage = "https://m.media-amazon.com/images/I/41+XuvmjYOL._SY445_SX342_ML2_.jpg"
         }
