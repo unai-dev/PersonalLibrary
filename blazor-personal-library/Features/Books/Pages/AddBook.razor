@@ -12,8 +12,7 @@
           CurrentPost="@currentPost"
           PostWithExit="@formPostWithExit"
           OnValidSubmit="@AddNewBook" 
-          CategoriesDeselect="@categoriesDeselect" CategoriesSelect="@categoriesSelect"
-          AuthorsDeselect="@authorsDeselect" AuthorsSelect="@authorsSelect"
+          CategoriesDeselect="@categoriesDeselect" CategoriesSelect="@categoriesSelect" AuthorsSelect="@authorsSelect"
           />
 
 
@@ -23,7 +22,6 @@
     private List<Category>? categoriesDeselect = new List<Category>();
 
     private List<Author>? authorsSelect = new List<Author>();
-    private List<Author>? authorsDeselect = new List<Author>();
 
     private bool currentPost = false;
     private bool formPostWithExit = false;
@@ -32,7 +30,6 @@
     {
         book = new Book();
         categoriesDeselect = categoryService.GetCategories();
-        authorsDeselect = authorService.GetAuthors();
     }
 
     private async Task AddNewBook()

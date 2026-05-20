@@ -1,0 +1,64 @@
+﻿@inject IAuthorService authorService
+
+<div class="mb-3">
+    <label class="form-label">Autores:</label>
+
+    <div>
+        <MudAutocomplete T="Author" Placeholder="Selecionar actor..." SearchFunc="@Search"
+                         ToStringFunc="@(e => null)" Value="@selectAuthor" ValueChanged="ValueChanged" @ref="mudAutocompleteAuthor">
+            <ItemTemplate>
+                <img style="width:50px" src="@context.ImageUrl" /> @context.Name
+            </ItemTemplate>
+        </MudAutocomplete>
+    </div>
+
+    <div class="d-flex flex-wrap gap-2 mt-3">
+        @foreach (var author in SelectAuthors)
+        {
+            <div class="author-chip d-flex align-items-center">
+                <span class="author-name">@author.Name</span>
+
+                <button class="remove-btn"
+                        @onclick="@(() => SelectAuthors.Remove(author))">
+                    ✕
+                </button>
+            </div>
+        }
+    </div>
+
+</div>
+
+@code {
+    [Parameter] public List<Author> SelectAuthors { get; set; } = new List<Author>();
+
+    private MudAutocomplete<Author>? mudAutocompleteAuthor;
+    private Author? selectAuthor;
+
+    private async Task<IEnumerable<Author>> Search(string value, CancellationToken cancellationToken)
+    {
+
+        if (string.IsNullOrEmpty(value))
+        {
+            return [];
+        }
+
+        var list = authorService.GetAuthors();
+
+        return list.Where(x => x.Name!.ToLower().Contains(value.ToLower()));
+
+    }
+
+    async Task ValueChanged(Author author)
+    {
+        if (author is null) return;
+
+        if (!SelectAuthors.Any(x => x!.Equals(author)))
+        {
+            SelectAuthors.Add(author);
+        }
+
+        selectAuthor = null;
+        await mudAutocompleteAuthor!.ClearAsync();
+    }
+
+}

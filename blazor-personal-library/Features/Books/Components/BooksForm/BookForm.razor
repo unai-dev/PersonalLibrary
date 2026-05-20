@@ -11,13 +11,13 @@
             <BPInputText Label="Title" @bind-Value="@Book.Title" PlaceHolder="El Quijote" />
         </div>
 
-        <MultipleSelector Label="Autores" Selects="authorsSelect" NoSelects="authorsDeselect" />
+        <MultipleSelector Label="Categorias" Selects="categoriesSelect" NoSelects="categoriesDeselect" />
 
         <div class="mb-3">
             <BPInputImage Label="Imagen del Libro" ImageURL="@Book.BookImage" SelectImage="f => Book.FilePicture = f" />
         </div>
 
-        <MultipleSelector Label="Categorias" NoSelects="categoriesDeselect" Selects="categoriesSelect" />
+        <BPAutocompleteAuthor SelectAuthors="@AuthorsSelect"/>
 
     </EntityForm>
 
@@ -28,7 +28,6 @@
     [Parameter, EditorRequired] public List<Category> CategoriesDeselect { get; set; } = new List<Category>();
     [Parameter] public List<Category> CategoriesSelect { get; set; } = new List<Category>();
 
-    [Parameter, EditorRequired] public List<Author> AuthorsDeselect { get; set; } = new List<Author>();
     [Parameter] public List<Author> AuthorsSelect { get; set; } = new List<Author>();
 
     [Parameter, EditorRequired] public Book Book { get; set; }
@@ -40,22 +39,16 @@
     private List<MultipleSelectorModel> categoriesDeselect = new List<MultipleSelectorModel>();
     private List<MultipleSelectorModel> categoriesSelect = new List<MultipleSelectorModel>();
 
-    private List<MultipleSelectorModel> authorsDeselect = new List<MultipleSelectorModel>();
-    private List<MultipleSelectorModel> authorsSelect = new List<MultipleSelectorModel>();
-
     protected override void OnInitialized()
     {
         categoriesSelect = CategoriesSelect.Select(x => new MultipleSelectorModel(x.Id.ToString(), x.Name!)).ToList();
         categoriesDeselect = CategoriesDeselect.Select(x => new MultipleSelectorModel(x.Id.ToString(), x.Name!)).ToList();
-
-        authorsSelect = AuthorsSelect.Select(x => new MultipleSelectorModel(x.Id.ToString(), x.Name!)).ToList();
-        authorsDeselect = AuthorsDeselect.Select(x => new MultipleSelectorModel(x.Id.ToString(), x.Name!)).ToList();
     }
 
     private async Task PostForm()
     {
         Book.BookGenders = categoriesSelect.Select(x => new BookCategory { CategoryId = int.Parse(x.id) }).ToList();
-        Book.BookAuthors = authorsSelect.Select(x => new BookAuthor { AuthorId = int.Parse(x.id) }).ToList();
+        Book.BookAuthors = AuthorsSelect.Select((author) => new BookAuthor { AuthorId =  author.Id}).ToList();
 
         await OnValidSubmit.InvokeAsync();
     }
