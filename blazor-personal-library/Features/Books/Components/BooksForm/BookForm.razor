@@ -5,7 +5,7 @@
                 CurrentPost="@CurrentPost"
                 FormPostWithExit="@PostWithExit"
                 InvalidForm="@InvalidForm"
-                OnValidSumbit="@PostForm">
+                OnValidSubmit="@PostForm">
 
         <div class="mb-3">
             <BPInputText Label="Title" @bind-Value="@Book.Title" PlaceHolder="El Quijote" />
@@ -15,12 +15,6 @@
 
         <div class="mb-3">
             <BPInputImage Label="Imagen del Libro" ImageURL="@Book.BookImage" SelectImage="f => Book.FilePicture = f" />
-        </div>
-
-        <div class="mb-3">
-
-            <label class="form-label fw-bold">State</label>
-            <InputCheckbox class="form-check text-muted" type="checkbox" @bind-Value="@Book.State" />
         </div>
 
         <MultipleSelector Label="Categorias" NoSelects="categoriesDeselect" Selects="categoriesSelect" />
@@ -40,7 +34,7 @@
     [Parameter, EditorRequired] public Book Book { get; set; }
     [Parameter, EditorRequired] public bool CurrentPost { get; set; } = false;
     [Parameter, EditorRequired] public bool PostWithExit { get; set; } = false;
-    [Parameter, EditorRequired] public EventCallback OnValidSumbit { get; set; }
+    [Parameter, EditorRequired] public EventCallback OnValidSubmit { get; set; }
     [Parameter] public bool InvalidForm { get; set; } = true;
 
     private List<MultipleSelectorModel> categoriesDeselect = new List<MultipleSelectorModel>();
@@ -63,7 +57,7 @@
         Book.BookGenders = categoriesSelect.Select(x => new BookCategory { CategoryId = int.Parse(x.id) }).ToList();
         Book.BookAuthors = authorsSelect.Select(x => new BookAuthor { AuthorId = int.Parse(x.id) }).ToList();
 
-        await OnValidSumbit.InvokeAsync();
+        await OnValidSubmit.InvokeAsync();
     }
 }
 

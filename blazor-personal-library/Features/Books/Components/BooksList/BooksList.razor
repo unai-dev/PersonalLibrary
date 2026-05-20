@@ -2,7 +2,7 @@
 
 @if (Books is null)
 {
-    <Loading>Loading books...</Loading>
+    <Loading>Cargando Libros...</Loading>
 }
 else
 {
@@ -14,8 +14,8 @@ else
                 <ChildContent>
                     <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                         <BooksListItem @key="context.Id" Book="context">
-                            <BPButton Variant="Variant.Danger" Width="Width.Full" Size="Size.Sm" OnClick="@(() => RemoveBook(context))">Remove</BPButton>
-                            <BPButton Variant="Variant.Success" Width="Width.Full" Size="Size.Sm">Edit</BPButton>
+                            <BPButton class="btn btn-danger" OnClick="@(() => RemoveBook(context))">Eliminar</BPButton>
+                            <BPButton class="btn btn-success">Editar</BPButton>
                         </BooksListItem>
 
                     </div>

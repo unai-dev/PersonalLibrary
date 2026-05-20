@@ -5,10 +5,7 @@
 @code {
     [Parameter] public RenderFragment? ChildContent { get; set; } = @<text>Sumbit</text>;
     [Parameter] public EventCallback OnClick { get; set; }
-    [Parameter] public Variant Variant { get; set; } = Variant.Primary;
-    [Parameter] public Width Width { get; set; } = Width.Full;
-    [Parameter] public Size Size { get; set; } = Size.Sm;
-    [Parameter] public ButtonType ButtonType { get; set; } = ButtonType.Sumbit;
+    [Parameter] public BPButtonType ButtonType { get; set; } = BPButtonType.Submit;
     [Parameter] public bool Disabled { get; set; } = false;
 
     [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object>? AdditionalAttributes { get; set; }
@@ -25,39 +22,8 @@
                 externalCssClasses = AdditionalAttributes["class"].ToString()!;
             }
 
-            string[] classes = [
-                "btn",
 
-                Variant switch
-            {
-                Variant.Primary => "btn-primary",
-                Variant.Secondary => "btn-secondary",
-                Variant.Success => "btn-success",
-                Variant.Warning => "btn-warning",
-                Variant.Danger => "btn-danger",
-                _ => "btn-primary"
-
-            },
-                Width switch
-            {
-
-                Width.Full => "w-100",
-                Width.Half => "w-50",
-                Width.Small => "w-25",
-                _ => "w-100"
-            },
-
-            Size switch
-            {
-                Size.Sm => "btn-sm",
-                Size.Md => "btn-md",
-                Size.Lg => "btn-lg",
-                _ => "btn-sm"
-            },
-                externalCssClasses
-            ];
-
-            return string.Join(" ", classes);
+            return string.Join(" ", externalCssClasses);
         }
     }
 }

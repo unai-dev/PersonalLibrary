@@ -11,7 +11,7 @@
 <BookForm Book="@book"
           CurrentPost="@currentPost"
           PostWithExit="@formPostWithExit"
-          OnValidSumbit="@AddNewBook" 
+          OnValidSubmit="@AddNewBook" 
           CategoriesDeselect="@categoriesDeselect" CategoriesSelect="@categoriesSelect"
           AuthorsDeselect="@authorsDeselect" AuthorsSelect="@authorsSelect"
           />
@@ -44,7 +44,6 @@
             bookService.AddNewBook(new Book
             {
                 Title = book!.Title,
-                State = book.State
             });
 
             await Task.Delay(2000);

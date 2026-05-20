@@ -4,7 +4,7 @@
 
 <MainHeader Header="Agregar Autor" SubHeader="Agrega un nuevo autor" />
 
-<EntityForm Entity="@author" CurrentPost="@currentPost" FormPostWithExit="@postWithExit" OnValidSumbit="@Add">
+<EntityForm Entity="@author" CurrentPost="@currentPost" FormPostWithExit="@postWithExit" OnValidSubmit="@Add">
     <BPInputText Label="Nombre" @bind-Value="@author.Name" />
     <BPInputImage Label="Autor" SelectImage="f => author.ImageFile = f" ImageURL="@author.ImageUrl" />
 </EntityForm>

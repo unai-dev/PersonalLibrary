@@ -8,12 +8,10 @@
 <CategoryForm Category="@category"
               CurrentPost="@currentPost"
               FormPostWithExit="@formPostWithExit"
-              OnValidSumbit="@Add" />
+              OnValidSubmit="@Add" />
 
 @code {
     private Category category = null!;
-    private EditContext? editContext;
-    private bool invalidForm = true;
     private bool currentPost = false;
     private bool formPostWithExit = false;
 

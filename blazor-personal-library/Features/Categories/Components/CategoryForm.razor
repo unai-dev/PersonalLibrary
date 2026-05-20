@@ -3,7 +3,7 @@
     Entity="@Category" 
     CurrentPost="@CurrentPost" 
     FormPostWithExit="@FormPostWithExit" 
-    InvalidForm="@InvalidForm" OnValidSumbit="@OnValidSumbit">
+    InvalidForm="@InvalidForm" OnValidSubmit="@OnValidSubmit">
 
     <BPInputText Label="Name" @bind-Value="Category.Name" PlaceHolder="Action" />
 
@@ -13,7 +13,7 @@
     [Parameter, EditorRequired] public Category Category { get; set; } = null!;
     [Parameter, EditorRequired] public bool CurrentPost { get; set; } = false;
     [Parameter, EditorRequired] public bool FormPostWithExit { get; set; } = false;
-    [Parameter, EditorRequired] public EventCallback OnValidSumbit { get; set; }
+    [Parameter, EditorRequired] public EventCallback OnValidSubmit { get; set; }
     [Parameter] public bool InvalidForm { get; set; } = true;
 
 }

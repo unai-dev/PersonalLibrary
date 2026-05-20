@@ -1,14 +1,14 @@
 ﻿@implements IDisposable
 @typeparam T where T:class
 
-<EditForm EditContext="editContext" OnValidSubmit="OnValidSumbit">
+<EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit">
 
     <DataAnnotationsValidator />
 
     @ChildContent
 
-    <BPButton ButtonType="ButtonType.Sumbit" Disabled="invalidForm || CurrentPost">
-        @(CurrentPost ?@<text>Sending...</text> : @<text>Sumbit</text>)
+    <BPButton class="btn btn-primary" ButtonType="BPButtonType.Submit" Disabled="invalidForm || CurrentPost">
+        @(CurrentPost ?@<text>Enviando...</text> : @<text>Enviar</text>)
     </BPButton>
 
 </EditForm>
@@ -19,7 +19,7 @@
     [Parameter, EditorRequired] public T Entity { get; set; }
     [Parameter, EditorRequired] public bool CurrentPost { get; set; } = false;
     [Parameter, EditorRequired] public bool FormPostWithExit { get; set; } = false;
-    [Parameter, EditorRequired] public EventCallback OnValidSumbit { get; set; }
+    [Parameter, EditorRequired] public EventCallback OnValidSubmit { get; set; }
     [Parameter] public bool InvalidForm { get; set; } = true;
 
     private EditContext? editContext;
@@ -37,9 +37,6 @@
     {
         if (editContext is not null)
         {
-            // Guardamos si el formulario es valido o no
-            // Si es valido guardamos false para que el boton de enviar este activo
-            // En caso que el formulario sea invalido guardamos true para que el boton enviar este inactivo
             invalidForm = !editContext.Validate();
             StateHasChanged();
         }

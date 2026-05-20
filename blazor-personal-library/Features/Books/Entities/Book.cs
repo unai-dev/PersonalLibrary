@@ -14,7 +14,6 @@ namespace blazor_personal_library.Features.Books.Entities
         [Required(ErrorMessage = "The field {0} is required")]
         [FirstUpperAttribute]
         public string Title { get; set; } = string.Empty;
-        public bool State { get; set; } = false;
         public string? BookImage { get; set; }
         public IBrowserFile? FilePicture { get; set; }
 
